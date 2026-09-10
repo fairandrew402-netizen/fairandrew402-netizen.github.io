@@ -1,0 +1,534 @@
+<title>Andrew Fair</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#F1F3EE;
+    --surface:#FFFFFF;
+    --ink:#15191A;
+    --ink-soft:#3C4744;
+    --steel:#5A6B66;
+    --line:#CDD5CC;
+    --accent:#C4501C;
+    --accent-soft:#F3E3D8;
+    --shadow: 0 1px 2px rgba(21,25,26,0.04), 0 6px 20px rgba(21,25,26,0.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#14181A;
+      --surface:#1B211F;
+      --ink:#E7ECE6;
+      --ink-soft:#C3CDC8;
+      --steel:#93A19B;
+      --line:#2B322F;
+      --accent:#E97A3E;
+      --accent-soft:#3A2A20;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#14181A;
+    --surface:#1B211F;
+    --ink:#E7ECE6;
+    --ink-soft:#C3CDC8;
+    --steel:#93A19B;
+    --line:#2B322F;
+    --accent:#E97A3E;
+    --accent-soft:#3A2A20;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.55;
+  }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+
+  .wrap{ max-width:1080px; margin:0 auto; padding-inline:24px; }
+
+  h1,h2,h3{ font-family:'Big Shoulders Display', 'Arial Narrow', sans-serif; text-wrap:balance; margin:0; letter-spacing:0.01em; }
+  .mono{ font-family:'IBM Plex Mono','SFMono-Regular',Consolas,monospace; }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace; font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--steel);
+  }
+  a{ color:inherit; }
+
+  /* ---- nav ---- */
+  nav{
+    position:sticky; top:0; z-index:10;
+    background:color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-block:14px; gap:16px; flex-wrap:wrap;
+  }
+  .navmark{ font-family:'IBM Plex Mono',monospace; font-size:0.78rem; letter-spacing:0.08em; color:var(--steel); }
+  .navmark strong{ color:var(--ink); }
+  .navlinks{ display:flex; gap:22px; flex-wrap:wrap; }
+  .navlinks a{
+    font-family:'IBM Plex Mono',monospace; font-size:0.74rem; letter-spacing:0.1em; text-transform:uppercase;
+    text-decoration:none; color:var(--ink-soft); border-bottom:1px solid transparent; padding-bottom:2px;
+  }
+  .navlinks a:hover, .navlinks a:focus-visible{ color:var(--accent); border-color:var(--accent); }
+
+  /* ---- title block ---- */
+  .titleblock{
+    margin-top:32px;
+    border:1px solid var(--line);
+    background:var(--surface);
+    box-shadow:var(--shadow);
+  }
+  .tb-grid{
+    display:grid; grid-template-columns:2fr 1fr 1fr;
+  }
+  .tb-cell{
+    border-top:1px solid var(--line);
+    padding:12px 16px;
+  }
+  .tb-grid > .tb-cell:nth-child(-n+3){ border-top:none; }
+  .tb-cell + .tb-cell{ border-left:1px solid var(--line); }
+  @media (max-width:640px){
+    .tb-grid{ grid-template-columns:1fr; }
+    .tb-cell + .tb-cell{ border-left:none; }
+    .tb-cell{ border-top:1px solid var(--line) !important; }
+    .tb-grid > .tb-cell:first-child{ border-top:none !important; }
+  }
+  .tb-label{ font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.12em; color:var(--steel); text-transform:uppercase; margin-bottom:4px; }
+  .tb-value{ font-size:0.95rem; }
+  .tb-value.status{ color:var(--accent); font-weight:600; }
+
+  /* ---- hero ---- */
+  .hero{ padding-block:56px 40px; }
+  .hero h1{ font-size:clamp(3rem, 9vw, 6rem); font-weight:800; line-height:0.92; }
+  .hero .role{
+    font-family:'IBM Plex Mono',monospace; font-size:clamp(0.85rem,1.6vw,1.05rem);
+    letter-spacing:0.06em; color:var(--accent); margin-top:14px;
+  }
+  .hero p.lede{
+    margin-top:20px; max-width:62ch; font-size:1.08rem; color:var(--ink-soft);
+  }
+
+  section{ padding-block:52px; border-top:1px solid var(--line); }
+  .section-head{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:28px; flex-wrap:wrap; }
+  .section-head h2{ font-size:clamp(1.7rem,3.6vw,2.3rem); font-weight:700; }
+
+  /* ---- featured project ---- */
+  .feature{
+    background:var(--surface); border:1px solid var(--line); box-shadow:var(--shadow);
+  }
+  .feature-top{
+    display:flex; justify-content:space-between; align-items:center; gap:12px;
+    padding:14px 20px; border-bottom:1px solid var(--line); flex-wrap:wrap;
+  }
+  .feature-grid{ display:grid; grid-template-columns:1.05fr 1fr; gap:0; }
+  @media (max-width:760px){ .feature-grid{ grid-template-columns:1fr; } }
+  .feature-diagram{
+    padding:28px; display:flex; align-items:center; justify-content:center;
+    border-right:1px solid var(--line); background:
+      repeating-linear-gradient(0deg, transparent 0 27px, var(--line) 27px 28px);
+    background-size: 100% 28px; background-repeat:repeat-y; background-position: 0 0;
+  }
+  @media (max-width:760px){ .feature-diagram{ border-right:none; border-bottom:1px solid var(--line); } }
+  .feature-diagram svg{ width:100%; max-width:340px; height:auto; }
+  .feature-body{ padding:28px; }
+  .feature-body p{ color:var(--ink-soft); margin:0 0 16px; }
+  .feature-body ul{ margin:0 0 18px; padding-left:1.15em; color:var(--ink-soft); }
+  .feature-body li{ margin-bottom:7px; }
+  .spectable{ width:100%; border-collapse:collapse; font-family:'IBM Plex Mono',monospace; font-size:0.82rem; }
+  .spectable tr{ border-top:1px solid var(--line); }
+  .spectable tr:first-child{ border-top:none; }
+  .spectable td{ padding:8px 0; vertical-align:top; }
+  .spectable td:first-child{ color:var(--steel); width:44%; letter-spacing:0.02em; }
+  .spectable td:last-child{ font-variant-numeric:tabular-nums; }
+  .tagrow{ display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
+  .tag{
+    font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.04em;
+    padding:4px 9px; border:1px solid var(--line); color:var(--ink-soft); background:var(--paper);
+  }
+
+  /* ---- project cards ---- */
+  .cards{ display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
+  @media (max-width:700px){ .cards{ grid-template-columns:1fr; } }
+  .card{ background:var(--surface); padding:24px; display:flex; flex-direction:column; }
+  .card-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:14px; }
+  .card-sheet{ font-family:'IBM Plex Mono',monospace; font-size:0.68rem; color:var(--steel); letter-spacing:0.08em; }
+  .card h3{ font-size:1.5rem; font-weight:700; margin-top:2px; }
+  .card .role{ font-family:'IBM Plex Mono',monospace; font-size:0.74rem; color:var(--accent); margin-top:6px; letter-spacing:0.03em; }
+  .card svg{ width:100%; height:96px; margin:14px 0; }
+  .card p{ color:var(--ink-soft); font-size:0.94rem; margin:0 0 14px; flex-grow:1; }
+  .card .tagrow{ margin-top:0; }
+
+  /* ---- experience ---- */
+  .xp{ display:flex; flex-direction:column; }
+  .xp-row{
+    display:grid; grid-template-columns:140px 1fr; gap:20px; padding-block:22px; border-top:1px solid var(--line);
+  }
+  .xp-row:first-child{ border-top:none; }
+  @media (max-width:600px){ .xp-row{ grid-template-columns:1fr; gap:6px; } }
+  .xp-date{ font-family:'IBM Plex Mono',monospace; font-size:0.76rem; color:var(--steel); padding-top:3px; }
+  .xp-org{ display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:6px; }
+  .xp-org h3{ font-size:1.25rem; font-weight:700; }
+  .xp-title{ font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--accent); }
+  .xp p{ color:var(--ink-soft); margin:6px 0 0; max-width:62ch; }
+
+  /* ---- skills ---- */
+  .skillgrid{ display:grid; grid-template-columns:repeat(2,1fr); gap:28px 40px; }
+  @media (max-width:640px){ .skillgrid{ grid-template-columns:1fr; } }
+  .skillgroup .eyebrow{ margin-bottom:10px; display:block; }
+  .chiprow{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{
+    font-size:0.86rem; padding:6px 12px; border:1px solid var(--line); background:var(--surface); color:var(--ink-soft);
+  }
+
+  /* ---- education ---- */
+  .edu{
+    display:grid; grid-template-columns:1fr auto; gap:16px; align-items:start;
+    background:var(--surface); border:1px solid var(--line); padding:24px; box-shadow:var(--shadow);
+  }
+  @media (max-width:560px){ .edu{ grid-template-columns:1fr; } }
+  .edu h3{ font-size:1.5rem; font-weight:700; }
+  .edu .degrees{ margin-top:10px; color:var(--ink-soft); }
+  .edu .degrees div{ margin-bottom:4px; }
+  .edu .stat{ text-align:right; font-family:'IBM Plex Mono',monospace; }
+  .edu .stat .num{ font-size:1.8rem; font-weight:600; color:var(--accent); display:block; }
+  .edu .honors{ margin-top:16px; display:flex; flex-wrap:wrap; gap:8px; }
+
+  /* ---- footer ---- */
+  footer{ padding-block:44px 60px; border-top:1px solid var(--line); }
+  .contact-row{ display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:24px; }
+  footer h2{ font-size:clamp(1.8rem,4vw,2.6rem); font-weight:700; max-width:16ch; }
+  .contact-links{ display:flex; flex-direction:column; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:0.9rem; }
+  .contact-links a{ text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:2px; }
+  .contact-links a:hover{ color:var(--accent); border-color:var(--accent); }
+  .foot-note{ margin-top:36px; font-size:0.76rem; color:var(--steel); font-family:'IBM Plex Mono',monospace; }
+</style>
+
+<nav>
+  <div class="wrap row">
+    <span class="navmark">DWG NO. <strong>AF&#8209;2026&#8209;PORTFOLIO</strong></span>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <div class="titleblock">
+    <div class="tb-grid">
+      <div class="tb-cell">
+        <div class="tb-label">Name</div>
+        <div class="tb-value">Andrew Fair</div>
+      </div>
+      <div class="tb-cell">
+        <div class="tb-label">Location</div>
+        <div class="tb-value">Boston, MA</div>
+      </div>
+      <div class="tb-cell">
+        <div class="tb-label">Status</div>
+        <div class="tb-value status">Open to full-time roles</div>
+      </div>
+      <div class="tb-cell" style="grid-column:1 / -1;">
+        <div class="tb-label">Title</div>
+        <div class="tb-value">Systems Engineer — Hardware Development · graduating December 2026, available January–April 2027</div>
+      </div>
+    </div>
+  </div>
+
+  <header class="hero">
+    <h1>ANDREW<br>FAIR</h1>
+    <div class="role">SYSTEMS ENGINEERING &nbsp;/&nbsp; HARDWARE INTEGRATION &nbsp;/&nbsp; VALIDATION</div>
+    <p class="lede" id="about">I work across the full development cycle of hardware products — requirements, integration, trade-offs, verification — rather than owning one narrow subsystem. That systems-level view is what I bring to program and product engineering roles: I've led a Siemens-sponsored sensor system from concept through a working prototype, and I currently validate medical-device packaging in production at UFP Technologies.</p>
+  </header>
+
+  <section id="work">
+    <div class="section-head">
+      <h2>Selected Work</h2>
+      <span class="eyebrow">5 projects, 2022&ndash;2026</span>
+    </div>
+
+    <div class="feature">
+      <div class="feature-top">
+        <span class="eyebrow">Sheet 01 &nbsp;·&nbsp; Fall 2025&ndash;Present</span>
+        <span class="tag" style="border-color:var(--accent); color:var(--accent);">Ongoing — Graduate Thesis</span>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-diagram">
+          <svg viewBox="0 0 320 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="160" cy="120" r="92" stroke="var(--steel)" stroke-width="1" stroke-dasharray="2 5"/>
+            <ellipse cx="160" cy="120" rx="92" ry="34" stroke="var(--ink)" stroke-width="1.4"/>
+            <ellipse cx="160" cy="120" rx="34" ry="92" stroke="var(--ink)" stroke-width="1.4"/>
+            <circle cx="160" cy="120" r="19" stroke="var(--accent)" stroke-width="2.4" fill="var(--surface)"/>
+            <circle cx="160" cy="120" r="6" fill="var(--accent)"/>
+            <path d="M178 104 L 276 46" stroke="var(--ink)" stroke-width="1.2" stroke-dasharray="4 4"/>
+            <circle cx="276" cy="46" r="4" fill="var(--ink)"/>
+            <path d="M186 30 L 186 8 M182 8 L 190 8" stroke="var(--steel)" stroke-width="1"/>
+            <path d="M34 30 L 286 30" stroke="var(--steel)" stroke-width="1"/>
+            <path d="M34 22 L 34 38 M286 22 L 286 38" stroke="var(--steel)" stroke-width="1"/>
+            <text x="160" y="18" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="var(--steel)">8 IN</text>
+            <text x="300" y="124" text-anchor="start" font-family="IBM Plex Mono" font-size="10" fill="var(--steel)" transform="rotate(90 300 124)">10 IN</text>
+            <path d="M300 30 L 300 210" stroke="var(--steel)" stroke-width="1"/>
+            <path d="M292 30 L 308 30 M292 210 L 308 210" stroke="var(--steel)" stroke-width="1"/>
+          </svg>
+        </div>
+        <div class="feature-body">
+          <h3 style="font-size:1.7rem; margin-bottom:6px;">Gimbaled Optical Sensor System</h3>
+          <div class="role" style="margin-bottom:16px;">Technical Lead / Systems Engineer — Siemens-sponsored senior design &amp; graduate thesis</div>
+          <p>Leading a multidisciplinary ME/EE/CS team to design and build a two-axis stabilized, long-range electro-optical sensor system for UAV-based target detection and tracking, sponsored by Siemens AG.</p>
+          <ul>
+            <li>Own systems engineering responsibilities — scheduling, cross-team integration, stakeholder communication — plus camera selection and overall fabrication lead.</li>
+            <li>Architected and integrated the mechanical, optical, and compute subsystems bridging all three disciplines; ran pixel-on-target trade studies to set detection requirements.</li>
+            <li>Demonstrated the working prototype tracking a moving target at range; continuing the work as graduate thesis research in ongoing collaboration with Siemens.</li>
+          </ul>
+          <table class="spectable">
+            <tr><td>Envelope</td><td>8 × 8 × 10 in, &lt;5 lb</td></tr>
+            <tr><td>Detection / tracking range</td><td>&gt; 1 mile</td></tr>
+            <tr><td>Onboard compute</td><td>NVIDIA Jetson Orin Nano</td></tr>
+            <tr><td>Stabilization</td><td>2-axis gimbal</td></tr>
+            <tr><td>CAD / simulation</td><td>Siemens NX, SolidWorks, ANSYS FEA</td></tr>
+          </table>
+          <div class="tagrow">
+            <span class="tag">Systems Integration</span>
+            <span class="tag">Trade Studies</span>
+            <span class="tag">Siemens Xcelerator</span>
+            <span class="tag">Cross-Functional Leadership</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0; border-top:none;">
+    <div class="cards">
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <span class="card-sheet">Sheet 02 · Spring 2026</span>
+            <h3>Regional Rail Interoperability System</h3>
+          </div>
+        </div>
+        <div class="role">Systems Engineering — Graduate Coursework</div>
+        <svg viewBox="0 0 300 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 30 H280 M20 60 H280" stroke="var(--steel)" stroke-width="1"/>
+          <circle cx="60" cy="30" r="5" fill="var(--ink)"/>
+          <circle cx="150" cy="30" r="5" fill="var(--accent)"/>
+          <circle cx="230" cy="30" r="5" fill="var(--ink)"/>
+          <circle cx="60" cy="60" r="5" fill="var(--ink)"/>
+          <circle cx="150" cy="60" r="5" fill="var(--ink)"/>
+          <circle cx="230" cy="60" r="5" fill="var(--ink)"/>
+          <path d="M150 35 V55" stroke="var(--accent)" stroke-width="1.4" stroke-dasharray="3 3"/>
+          <path d="M60 35 V55 M230 35 V55" stroke="var(--steel)" stroke-width="1" stroke-dasharray="3 3"/>
+        </svg>
+        <p>Developed stakeholder needs, requirements, CONOPS, and functional architecture for a Mid-Atlantic regional rail system, and led the QFD analysis translating passenger needs into technical priorities. Selected concept: the Human-Centered Hybrid design. Built the verification &amp; validation plan linking requirements to passenger experience and operational performance.</p>
+        <div class="tagrow">
+          <span class="tag">QFD</span>
+          <span class="tag">CONOPS</span>
+          <span class="tag">V&amp;V Planning</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <span class="card-sheet">Sheet 03 · Spring 2023</span>
+            <h3>Autonomous Pathfinding Robot</h3>
+          </div>
+        </div>
+        <div class="role">Lead Test Engineer — Gallois Autonomous Robotics Competition</div>
+        <svg viewBox="0 0 300 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="130" y="55" width="20" height="20" stroke="var(--ink)" stroke-width="1.4"/>
+          <g stroke="var(--steel)" stroke-width="1" stroke-dasharray="2 4">
+            <path d="M140 55 L90 15"/>
+            <path d="M140 55 L140 8"/>
+            <path d="M140 55 L190 15"/>
+            <path d="M140 55 L215 40"/>
+            <path d="M140 55 L65 40"/>
+          </g>
+          <circle cx="95" cy="25" r="3.5" fill="var(--ink)"/>
+          <circle cx="200" cy="25" r="3.5" fill="var(--ink)"/>
+          <path d="M140 55 C 110 40, 70 30, 40 32" stroke="var(--accent)" stroke-width="1.6" fill="none"/>
+          <circle cx="40" cy="32" r="4" fill="var(--accent)"/>
+        </svg>
+        <p>Built an autonomous robot using LIDAR and ultrasonic sensors for real-time navigation toward a target while avoiding obstacles. Developed the sensor-fusion and vector-based pathfinding algorithms and fabricated a custom PCB for sensor-to-microcontroller communication. Placed 3rd of 200+ teams.</p>
+        <div class="tagrow">
+          <span class="tag">Sensor Fusion</span>
+          <span class="tag">Custom PCB</span>
+          <span class="tag">C++</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <span class="card-sheet">Sheet 04 · Spring 2025</span>
+            <h3>Ping Pong Pal</h3>
+          </div>
+        </div>
+        <div class="role">Mechanical Lead — Automated Training Robot</div>
+        <svg viewBox="0 0 300 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="24" y="60" width="34" height="20" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M58 66 Q 150 8 250 60" stroke="var(--accent)" stroke-width="1.6" fill="none" stroke-dasharray="4 4"/>
+          <circle cx="250" cy="60" r="4" fill="var(--accent)"/>
+          <path d="M255 76 H 280 M280 68 V 84" stroke="var(--steel)" stroke-width="1"/>
+          <text x="150" y="30" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="var(--steel)">40 MPH</text>
+        </svg>
+        <p>Led mechanical development of the ball-launching mechanism and overall mechatronic integration for a table-tennis training robot with variable speed, spin, and difficulty. Devised a marble ball-bearing oscillation system reaching launch speeds up to 40 mph and delivered a fully 3D-printed working prototype in one semester.</p>
+        <div class="tagrow">
+          <span class="tag">SolidWorks</span>
+          <span class="tag">Mechatronics</span>
+          <span class="tag">Rapid Prototyping</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <span class="card-sheet">Sheet 05 · Spring 2026</span>
+            <h3>Gym Attendance &amp; Workout Analytics</h3>
+          </div>
+        </div>
+        <div class="role">Machine Learning Project</div>
+        <svg viewBox="0 0 300 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 75 H280" stroke="var(--steel)" stroke-width="1"/>
+          <path d="M20 75 V15" stroke="var(--steel)" stroke-width="1"/>
+          <circle cx="60" cy="55" r="3" fill="var(--steel)"/>
+          <circle cx="95" cy="40" r="3" fill="var(--steel)"/>
+          <circle cx="140" cy="50" r="3" fill="var(--steel)"/>
+          <circle cx="175" cy="28" r="3" fill="var(--steel)"/>
+          <circle cx="215" cy="35" r="3" fill="var(--steel)"/>
+          <circle cx="250" cy="20" r="3" fill="var(--steel)"/>
+          <path d="M30 68 L 265 22" stroke="var(--accent)" stroke-width="1.6"/>
+        </svg>
+        <p>Built classification and regression models in Python to predict gym-member attendance and calories burned from open-source activity data, comparing K-nearest-neighbors and XGBoost with cross-validation and hyperparameter tuning to evaluate reliability and real-world use.</p>
+        <div class="tagrow">
+          <span class="tag">Python</span>
+          <span class="tag">XGBoost</span>
+          <span class="tag">Cross-Validation</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="section-head">
+      <h2>Experience</h2>
+      <span class="eyebrow">2021&ndash;Present</span>
+    </div>
+    <div class="xp">
+      <div class="xp-row">
+        <div class="xp-date">May 2026 &ndash; Present</div>
+        <div>
+          <div class="xp-org">
+            <h3>UFP Technologies</h3>
+            <span class="xp-title">Validation Engineering Intern</span>
+          </div>
+          <p>Support validation for custom medical-device components and packaging made from specialized foams and plastics — process/equipment qualification and risk analysis. Contributing to sterile orthopedic hip-implant packaging designed for contactless presentation during surgery, with hands-on exposure to thermoforming, RF welding, ultrasonic welding, lamination, and cleanroom production.</p>
+        </div>
+      </div>
+      <div class="xp-row">
+        <div class="xp-date">May &ndash; Aug 2024</div>
+        <div>
+          <div class="xp-org">
+            <h3>Titleist, Acushnet Company</h3>
+            <span class="xp-title">Advanced / Mechanical Engineering Intern</span>
+          </div>
+          <p>Worked precision manufacturing — CNC lathing/milling, EDM machining, CMM measurement — and developed automated machine-output data collection and reporting, improving visibility into shop capabilities by 23%.</p>
+        </div>
+      </div>
+      <div class="xp-row">
+        <div class="xp-date">Sept 2025 &ndash; May 2026</div>
+        <div>
+          <div class="xp-org">
+            <h3>Apple Inc.</h3>
+            <span class="xp-title">Next-Gen Innovators Program</span>
+          </div>
+          <p>Selected for Apple's mentorship program pairing students with Apple engineers on technical problem-solving, collaboration, and engineering career development.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-head">
+      <h2>Skills</h2>
+    </div>
+    <div class="skillgrid">
+      <div class="skillgroup">
+        <span class="eyebrow">Design &amp; Systems</span>
+        <div class="chiprow">
+          <span class="chip">SolidWorks</span><span class="chip">Fusion 360</span><span class="chip">Requirements Development</span><span class="chip">System Architecture</span><span class="chip">Trade Studies</span>
+        </div>
+      </div>
+      <div class="skillgroup">
+        <span class="eyebrow">Program &amp; Coordination</span>
+        <div class="chiprow">
+          <span class="chip">Cross-Functional Leadership</span><span class="chip">Stakeholder Communication</span><span class="chip">Scheduling</span><span class="chip">Risk Analysis</span>
+        </div>
+      </div>
+      <div class="skillgroup">
+        <span class="eyebrow">Programming &amp; Analysis</span>
+        <div class="chiprow">
+          <span class="chip">Python</span><span class="chip">C++</span><span class="chip">MATLAB</span><span class="chip">MiniTab</span><span class="chip">Data Acquisition</span>
+        </div>
+      </div>
+      <div class="skillgroup">
+        <span class="eyebrow">Fabrication &amp; Manufacturing</span>
+        <div class="chiprow">
+          <span class="chip">3D Printing</span><span class="chip">CNC / EDM</span><span class="chip">CMM &amp; GD&amp;T</span><span class="chip">RF &amp; Ultrasonic Welding</span><span class="chip">Cleanroom Production</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="section-head">
+      <h2>Education</h2>
+    </div>
+    <div class="edu">
+      <div>
+        <h3>Stevens Institute of Technology</h3>
+        <div class="role" style="margin-top:2px;">Hoboken, NJ</div>
+        <div class="degrees">
+          <div>M.Eng., Systems Engineering — expected December 2026</div>
+          <div>B.E., Mechanical Engineering — September 2022 to May 2026</div>
+        </div>
+        <div class="honors">
+          <span class="tag">Highest Honors</span>
+          <span class="tag">Dean's List</span>
+          <span class="tag">Edwin A. Stevens Scholarship</span>
+        </div>
+      </div>
+      <div class="stat">
+        <span class="num">3.86</span>
+        GPA
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="contact-row">
+      <h2>Let's talk about what you're building.</h2>
+      <div class="contact-links">
+        <a href="mailto:fairandrew402@gmail.com">fairandrew402@gmail.com</a>
+        <a href="https://linkedin.com/in/andrewcfair-1013798120189002632" target="_blank" rel="noopener">linkedin.com/in/andrewcfair</a>
+        <span class="eyebrow" style="margin-top:6px;">Boston, MA</span>
+      </div>
+    </div>
+    <div class="foot-note">DWG NO. AF-2026-PORTFOLIO &nbsp;·&nbsp; REV A &nbsp;·&nbsp; SHEET 1 OF 1</div>
+  </footer>
+
+</div>
